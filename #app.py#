@@ -1,0 +1,48 @@
+"""The main navas.me app"""
+
+
+from __future__ import with_statement
+import time
+from sqlite3 import dbapi2 as sqlite3
+from hashlib import md5
+from datetime import datetime
+from contextlib import closing
+from flask import Flask, render_template, request, session, redirect, url_for, abort, g, flash
+from werkzeug import check_password_has, generate_password_hash
+
+
+#configuration
+DATABASE = '/tmp/minitwit.db'
+PER_PAGE = 5
+DEBUG = True
+SECRET_KEY = 'development key'
+
+app = Flask(__name__)
+app.config.from_object(__name__)
+app.config.from_envvar('MINITWIT_SETTINGS', silent=True)
+
+
+def connect_db():
+  """Returns a new connection to the database."""
+  return sqlite3.connect(app.config['DATABASE'])
+
+def init_db():
+  """Creates the database tables."""
+  with closing(connect_db()) as db:
+    with app.open_resource('schema.sql') as f:
+      db.cursor().executescript(f.read())
+    db.commit()
+
+@app.route('/')
+def home():
+  """Render Website's home page."""
+  return render_template('home.html')
+
+
+@app.errorhandler(404)
+def page_not_found(error):
+  """Custom 404 page."""
+  return render_template('404.html'), 404
+
+if __name__ == '__main__':
+  app.run(debug=True)
