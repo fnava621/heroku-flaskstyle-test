@@ -1,6 +1,7 @@
 """The main navas.me app"""
 from __future__ import with_statement
 import time
+import os
 from sqlite3 import dbapi2 as sqlite3
 from hashlib import md5
 from datetime import datetime
@@ -24,5 +25,8 @@ def page_not_found(error):
   """Custom 404 page."""
   return render_template('404.html'), 404
 
+
 if __name__ == '__main__':
-  app.run(debug=True)
+    # Bind to PORT if defined, otherwise default to 5000.
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)
