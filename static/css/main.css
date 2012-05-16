@@ -1,17 +1,23 @@
-/* header.html style */
+/* Header.html style */
 
-#main_header {
+header {
   border-bottom: 1px solid #E8E8E8;
-  width: 100%;
-  padding-top: 10px;
+  padding-top: 20px;
   padding-bottom: 10px;
-  padding-left: 50px;
+  padding-left: 300px;
   }
 
 #date {
   color: black;
-  font-size: 14px;
+  font-size: 16px;
+  font-weight: bold;
   }
+
+#happy_date {
+  float: right;
+  padding-right: 50px;
+  color: #B8B8B8;
+ }
 
 /* main.html */
 #sidebar {
@@ -23,7 +29,6 @@
    text-align: center;
    padding-top: 15px;
   }
-
 
 #posts{
   margin-left: 250px;
@@ -58,4 +63,3 @@ h2{
   padding-bottom: 25px;
   color: #B8B8B8;
  }
-
