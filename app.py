@@ -1,14 +1,23 @@
 """The main navas.me app"""
+from __future__ import with_statement
+import time
+from sqlite3 import dbapi2 as sqlite3
+from hashlib import md5
+from datetime import datetime
+from contextlib import closing
+from flask import Flask, render_template, request, session, redirect, url_for, abort, g, flash
+from werkzeug import check_password_hash, generate_password_hash
 
-from flask import Flask, render_template, request, redirect, url_for
+
 
 app = Flask(__name__)
+    
 
 @app.route('/')
 def home():
-  """Render Website's home page."""
   return render_template('home.html')
 
+                      
 
 @app.errorhandler(404)
 def page_not_found(error):
